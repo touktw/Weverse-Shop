@@ -1,5 +1,6 @@
 package com.touktw.weverseshop.view.logo
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.MediatorLiveData
@@ -55,7 +56,7 @@ class LogoActivity : BaseActivity() {
                 readyToUse.removeSource(liveData)
             }
         }
-        localeViewModel?.localeCurrencies?.let { liveData ->
+        localeViewModel?.locales?.let { liveData ->
             if (add) {
                 readyToUse.addSource(liveData) {
                     readyToUse.value = checkDataLoaded()
@@ -68,7 +69,7 @@ class LogoActivity : BaseActivity() {
 
     private fun checkDataLoaded(): Boolean {
         val isLoadedArtist = artistViewModel?.artists?.value?.isNotEmpty() == true
-        val isLoadLocale = localeViewModel?.localeCurrencies?.value?.isNotEmpty() == true
+        val isLoadLocale = localeViewModel?.locales?.value?.isNotEmpty() == true
         return isLoadedArtist && isLoadLocale
     }
 
@@ -82,6 +83,7 @@ class LogoActivity : BaseActivity() {
 
     private fun startHomeActivity() {
         startActivity(Intent(this, HomeActivity::class.java))
+        finish()
     }
 
     private fun startWizardActivity() {
@@ -91,7 +93,10 @@ class LogoActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             REQ_WIZARD -> {
-
+                when (resultCode) {
+                    Activity.RESULT_OK -> startHomeActivity()
+                    else -> finish()
+                }
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
         }

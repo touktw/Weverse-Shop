@@ -14,4 +14,33 @@
         <item name="android:background">@drawable/common_btn_bg</item>
         <item name="android:textColor">@color/common_btn_text</item>
     </style>
+
+    <style name="TextStyle" parent="TextAppearance.AppCompat.Large">
+        <item name="fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextStyle.Bold" parent="TextStyle">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextStyle.Title" parent="TextStyle">
+        <item name="android:textSize">24dp</item>
+    </style>
+
+    <style name="TextStyle.Title.Bold" parent="TextStyle.Bold">
+        <item name="android:textSize">24dp</item>
+    </style>
+
+    <style name="TextStyle.Large" parent="TextStyle">
+        <item name="android:textSize">18dp</item>
+    </style>
+
+    <style name="TextStyle.Normal" parent="TextStyle">
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="TextStyle.Small" parent="TextStyle">
+        <item name="android:textSize">14dp</item>
+    </style>
+
 </resources>

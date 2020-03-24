@@ -15,22 +15,25 @@ import kotlinx.coroutines.launch
 
 
 class LocaleCurrencyViewModel(application: Application) : DBViewModel(application) {
-    val localeCurrencies = db.localeCurrencyDao().getAll()
+    val locales = db.localeDao().getAll()
+    val currencies = db.currencyDao().getAll()
 
     fun load() {
         WeverseShopService.get().getLocales()
-            .enqueue(object : LocaleCallback() {
-                override fun onSuccess(response: LocaleResponse) {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        db.localeCurrencyDao()
-                            .insert(*response.data.toTypedArray())
+                .enqueue(object : LocaleCallback() {
+                    override fun onSuccess(response: LocaleResponse) {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val locales = response.data
+                            val currencies = locales.mapNotNull { it.currency }
+
+                            db.localeDao().insert(*locales.toTypedArray())
+                            db.currencyDao().insert(*currencies.toTypedArray())
+                        }
                     }
-                }
 
-                override fun onFailed(code: Int, t: Throwable?) {
-                    //TODO: 실패 처리는???
-                }
-
-            })
+                    override fun onFailed(code: Int, t: Throwable?) {
+                        //TODO: 실패 처리는???
+                    }
+                })
     }
 }

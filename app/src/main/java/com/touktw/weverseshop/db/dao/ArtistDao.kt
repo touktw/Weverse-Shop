@@ -22,7 +22,4 @@ interface ArtistDao : BaseDao<ArtistDto> {
 
     @Query("SELECT * FROM artist WHERE id=(:artistId)")
     fun getById(artistId: Int): LiveData<ArtistDto>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    override fun insert(vararg t: ArtistDto)
 }

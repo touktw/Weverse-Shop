@@ -11,5 +11,8 @@ import androidx.room.PrimaryKey
 data class ArtistDto(
     val name: String,
     @PrimaryKey
-    val id: Int
+    val id: Int,
+    val group: String,
+    val groupId: Int,
+    val logoUrl: String
 )

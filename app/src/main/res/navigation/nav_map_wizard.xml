@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_map_wizard"
+    app:startDestination="@id/languageSelectFragment">
+    <fragment
+        android:id="@+id/languageSelectFragment"
+        android:name="com.touktw.weverseshop.view.wizard.LanguageSelectFragment"
+        android:label="LanguageSelectFragment">
+        <action
+            android:id="@+id/actionToCurrencySelect"
+            app:destination="@id/currencySelectFragment" />
+        <argument
+            android:name="progress"
+            app:argType="integer"
+            android:defaultValue="1" />
+    </fragment>
+    <fragment
+        android:id="@+id/artistSelectFragment"
+        android:name="com.touktw.weverseshop.view.wizard.ArtistSelectFragment"
+        android:label="ArtistSelectFragment">
+
+        <argument
+            android:name="progress"
+            app:argType="integer"
+            android:defaultValue="3" />
+    </fragment>
+    <fragment
+        android:id="@+id/currencySelectFragment"
+        android:name="com.touktw.weverseshop.view.wizard.CurrencySelectFragment"
+        android:label="CurrencySelectFragment">
+        <action
+            android:id="@+id/actionToArtistSelect"
+            app:destination="@id/artistSelectFragment" />
+        <argument
+            android:name="progress"
+            app:argType="integer"
+            android:defaultValue="2" />
+    </fragment>
+</navigation>

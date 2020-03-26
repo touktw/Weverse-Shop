@@ -23,10 +23,6 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextStyle.Title" parent="TextStyle">
-        <item name="android:textSize">24dp</item>
-    </style>
-
     <style name="TextStyle.Title.Bold" parent="TextStyle.Bold">
         <item name="android:textSize">24dp</item>
     </style>

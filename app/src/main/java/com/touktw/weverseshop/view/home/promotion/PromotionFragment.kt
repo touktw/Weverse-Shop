@@ -44,7 +44,8 @@ class PromotionFragment : BaseFragment() {
                 dpScale.times(14).toInt(),
                 dpScale.times(8).toInt())
         homeViewModel?.promotions?.observe(viewLifecycleOwner, Observer {
-            viewPager.adapter = PromotionAdapter(parentFragmentManager, it)
+            val list = it ?: return@Observer
+            viewPager.adapter = PromotionAdapter(parentFragmentManager, list)
         })
     }
 }

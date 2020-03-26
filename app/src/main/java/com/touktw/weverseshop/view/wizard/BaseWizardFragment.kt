@@ -9,5 +9,5 @@ import com.touktw.weverseshop.BaseFragment
 
 
 abstract class BaseWizardFragment : BaseFragment() {
-    abstract fun getNextDirenction(): NavDirections?
+    abstract fun getNextDirections(): NavDirections?
 }

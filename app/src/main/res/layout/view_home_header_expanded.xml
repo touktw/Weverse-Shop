@@ -6,35 +6,43 @@
     android:layout_height="128dp"
     android:orientation="vertical">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageArtistLogo"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="16dp"
-        app:civ_border_color="@color/grey"
-        app:civ_border_width="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:src="@drawable/logo_bts" />
-
-    <TextView
-        android:id="@+id/textArtistName"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutArtistInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:textAppearance="@style/TextStyle.Title.Bold"
-        app:layout_constraintBottom_toBottomOf="@id/imageArtistLogo"
-        app:layout_constraintLeft_toRightOf="@id/imageArtistLogo"
-        app:layout_constraintTop_toTopOf="@id/imageArtistLogo"
-        tools:text="BTS" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
 
-    <ImageButton
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginLeft="16dp"
-        android:background="@drawable/ic_expand_more_black_24dp"
-        app:layout_constraintLeft_toRightOf="@id/textArtistName"
-        app:layout_constraintTop_toTopOf="@id/textArtistName" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageArtistLogo"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="16dp"
+            app:civ_border_color="@color/grey"
+            app:civ_border_width="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:src="@drawable/logo_bts" />
+
+        <TextView
+            android:id="@+id/textArtistName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:textAppearance="@style/TextStyle.Title.Bold"
+            app:layout_constraintBottom_toBottomOf="@id/imageArtistLogo"
+            app:layout_constraintLeft_toRightOf="@id/imageArtistLogo"
+            app:layout_constraintTop_toTopOf="@id/imageArtistLogo"
+            tools:text="BTS" />
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/ic_expand_more_black_24dp"
+            app:layout_constraintLeft_toRightOf="@id/textArtistName"
+            app:layout_constraintTop_toTopOf="@id/textArtistName" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

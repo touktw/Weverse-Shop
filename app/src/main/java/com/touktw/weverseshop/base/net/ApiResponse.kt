@@ -6,6 +6,6 @@ package com.touktw.weverseshop.base.net
 
 
 data class ApiResponse(
-    val description: String? = null,
-    val data: String? = null
+        val description: String? = null,
+        val data: String? = null
 )

@@ -1,11 +1,7 @@
 package com.touktw.weverseshop.view.home.product
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.touktw.weverseshop.BaseFragment
@@ -25,9 +21,6 @@ class ProductFragment : BaseFragment() {
         get() = R.layout.fragment_product
 
     private var homeViewModel: HomeViewModel? = null
-//    private val adapter: ProductCategoryAdapter by lazy {
-//        ProductCategoryAdapter(childFragmentManager)
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,32 +33,16 @@ class ProductFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        viewPagerProduct.adapter = adapter
         tabLayout.setupWithViewPager(viewPagerProduct)
         tabLayout.measureAllChildren = true
 
         homeViewModel?.productsByCategory?.observe(viewLifecycleOwner, Observer { map ->
+            val map = map ?: return@Observer
             CoroutineScope(Dispatchers.Main).launch {
                 val categories = map.keys.toList()
                 viewPagerProduct.offscreenPageLimit = 10
                 viewPagerProduct.adapter = ProductCategoryAdapter(childFragmentManager, categories)
             }
         })
-    }
-}
-
-
-class ProductCategoryAdapter(fragmentManager: FragmentManager, val items: List<String>) : FragmentStatePagerAdapter(fragmentManager) {
-    override fun getItem(position: Int): Fragment {
-        Log.d("###", "ProductCategoryAdapter getItem position:$position")
-        return ProductCategoryFragment.newInstance(items[position])
-    }
-
-    override fun getPageTitle(position: Int): CharSequence? {
-        return items[position]
-    }
-
-    override fun getCount(): Int {
-        return items.size
     }
 }

@@ -1,7 +1,6 @@
 package com.touktw.weverseshop.net.callback
 
 import com.touktw.weverseshop.base.net.BaseCallback
-import com.touktw.weverseshop.net.response.ArtistResponse
 import com.touktw.weverseshop.net.response.PromotionResponse
 
 /**

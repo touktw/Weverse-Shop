@@ -37,7 +37,7 @@ class ArtistSelectFragment : BaseWizardFragment() {
         }
     }
 
-    override fun getNextDirenction(): NavDirections? {
+    override fun getNextDirections(): NavDirections? {
         return null
     }
 
@@ -61,7 +61,7 @@ class ArtistSelectFragment : BaseWizardFragment() {
             CoroutineScope(Dispatchers.Main).launch {
                 radioGroup.removeAllViews()
                 radioButtonMap.clear()
-                artists.groupBy { it.groupId }.let { grouped ->
+                artists?.groupBy { it.groupId }?.let { grouped ->
                     grouped.forEach { entry ->
                         val textView = inflateTextView()
                         textView.text = entry.value[0].group

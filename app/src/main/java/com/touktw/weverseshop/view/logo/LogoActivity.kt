@@ -8,11 +8,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.touktw.weverseshop.R
 import com.touktw.weverseshop.base.BaseActivity
-import com.touktw.weverseshop.db.SharedPreferenceManager
+import com.touktw.weverseshop.db.DatabaseManager
+import com.touktw.weverseshop.db.WeverseDatabase
 import com.touktw.weverseshop.view.home.HomeActivity
 import com.touktw.weverseshop.view.wizard.WizardActivity
-import com.touktw.weverseshop.viewmodel.ArtistViewModel
-import com.touktw.weverseshop.viewmodel.LocaleCurrencyViewModel
+import com.touktw.weverseshop.viewmodel.LogoViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * Created by taekim on 2020-03-24
@@ -20,9 +23,7 @@ import com.touktw.weverseshop.viewmodel.LocaleCurrencyViewModel
 
 
 class LogoActivity : BaseActivity() {
-    private var artistViewModel: ArtistViewModel? = null
-    private var localeViewModel: LocaleCurrencyViewModel? = null
-
+    private var logoViewModel: LogoViewModel? = null
     private val readyToUse = MediatorLiveData<Boolean>()
 
 
@@ -30,8 +31,7 @@ class LogoActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_logo)
         val factory = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        artistViewModel = ViewModelProvider(this, factory).get(ArtistViewModel::class.java)
-        localeViewModel = ViewModelProvider(this, factory).get(LocaleCurrencyViewModel::class.java)
+        logoViewModel = ViewModelProvider(this, factory).get(LogoViewModel::class.java)
 
         readyToUse.observe(this, Observer {
             if (it) {
@@ -41,13 +41,11 @@ class LogoActivity : BaseActivity() {
         })
 
         addRemoveSource(true)
-
-        artistViewModel?.load()
-        localeViewModel?.load()
+        logoViewModel?.load()
     }
 
     private fun addRemoveSource(add: Boolean) {
-        artistViewModel?.artists?.let { liveData ->
+        logoViewModel?.artistViewModel?.artists?.let { liveData ->
             if (add) {
                 readyToUse.addSource(liveData) {
                     readyToUse.value = checkDataLoaded()
@@ -56,7 +54,7 @@ class LogoActivity : BaseActivity() {
                 readyToUse.removeSource(liveData)
             }
         }
-        localeViewModel?.locales?.let { liveData ->
+        logoViewModel?.localeViewModel?.locales?.let { liveData ->
             if (add) {
                 readyToUse.addSource(liveData) {
                     readyToUse.value = checkDataLoaded()
@@ -68,16 +66,18 @@ class LogoActivity : BaseActivity() {
     }
 
     private fun checkDataLoaded(): Boolean {
-        val isLoadedArtist = artistViewModel?.artists?.value?.isNotEmpty() == true
-        val isLoadLocale = localeViewModel?.locales?.value?.isNotEmpty() == true
+        val isLoadedArtist = logoViewModel?.artistViewModel?.artists?.value?.isNotEmpty() == true
+        val isLoadLocale = logoViewModel?.localeViewModel?.locales?.value?.isNotEmpty() == true
         return isLoadedArtist && isLoadLocale
     }
 
     private fun moveToNextActivity() {
-        if (SharedPreferenceManager.isWizardFinished(this)) {
-            startHomeActivity()
-        } else {
-            startWizardActivity()
+        CoroutineScope(Dispatchers.Main).launch {
+            if (DatabaseManager.get(application).preferenceDao().getPreferenceSync() != null) {
+                startHomeActivity()
+            } else {
+                startWizardActivity()
+            }
         }
     }
 

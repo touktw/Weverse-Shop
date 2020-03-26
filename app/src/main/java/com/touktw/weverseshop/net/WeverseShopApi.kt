@@ -29,4 +29,7 @@ interface WeverseShopApi : BaseApi {
 
     @GET("product/{id}")
     fun getProduct(@Path("id") artistId: String): Call<ApiResponse>
+
+    @GET("notice")
+    fun getNotice(): Call<ApiResponse>
 }

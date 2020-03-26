@@ -16,20 +16,19 @@ import java.util.*
 
 abstract class BaseCallback<T : BaseResponse>(private val clazz: Class<T>) : Callback<ApiResponse> {
     private val parser = JsonParser()
-    private val gson =
-        GsonBuilder()
+    private val gson = GsonBuilder()
             .registerTypeAdapter(Locale::class.java, LocaleDeserializer())
             .create()
 
     abstract fun onSuccess(response: T)
     abstract fun onFailed(code: Int, t: Throwable? = null)
     override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-        Log.d("###", "onFailure ${t.message}")
+        Log.d(LOG, "onFailure ${t.message}")
         onFailed(Results.ERROR_UNKNOWN, t)
     }
 
     override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-        Log.d("###", "onResponse url:${call.request().url()} response:${response.isSuccessful},${response.code()}")
+        Log.d(LOG, "onResponse url:${call.request().url()} response:${response.isSuccessful},${response.code()}")
         when {
             response.isSuccessful -> {
                 var success = false

@@ -11,10 +11,10 @@ object WeverseShopService {
     private val client = WeverseShopHttpClient()
     fun get(): WeverseShopApi {
         return Retrofit.Builder()
-            .baseUrl(client.baseUrl)
-            .client(client.client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(WeverseShopApi::class.java)
+                .baseUrl(client.baseUrl)
+                .client(client.client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(WeverseShopApi::class.java)
     }
 }

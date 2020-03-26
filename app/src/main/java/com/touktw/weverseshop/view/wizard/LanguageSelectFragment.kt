@@ -33,7 +33,7 @@ class LanguageSelectFragment : BaseWizardFragment() {
         }
     }
 
-    override fun getNextDirenction(): NavDirections? {
+    override fun getNextDirections(): NavDirections? {
         return LanguageSelectFragmentDirections.actionToCurrencySelect()
     }
 
@@ -55,7 +55,7 @@ class LanguageSelectFragment : BaseWizardFragment() {
         wizardViewModel?.locales?.observe(viewLifecycleOwner, Observer { locales ->
             CoroutineScope(Dispatchers.Main).launch {
                 radioGroup.removeAllViews()
-                locales.forEachIndexed { index, locale ->
+                locales?.forEachIndexed { index, locale ->
                     val button = inflateRadioButton()
                     button.id = index
                     button.text = locale.locale.getDisplayLanguage(locale.locale)

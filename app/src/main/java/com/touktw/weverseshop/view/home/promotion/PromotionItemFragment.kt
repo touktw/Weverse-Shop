@@ -1,6 +1,5 @@
 package com.touktw.weverseshop.view.home.promotion
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
@@ -8,7 +7,6 @@ import com.touktw.weverseshop.BaseFragment
 import com.touktw.weverseshop.R
 import com.touktw.weverseshop.model.PromotionDto
 import kotlinx.android.synthetic.main.fragment_promotion_item.*
-import kotlin.random.Random
 
 /**
  * Created by taekim on 2020-03-26

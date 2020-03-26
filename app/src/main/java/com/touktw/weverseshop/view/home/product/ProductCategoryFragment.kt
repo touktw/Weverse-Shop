@@ -1,11 +1,9 @@
 package com.touktw.weverseshop.view.home.product
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -44,9 +42,9 @@ class ProductCategoryFragment : Fragment() {
             setDrawable(context?.resources?.getDrawable(R.drawable.divider_trans)!!)
         })
         homeViewModel?.productsByCategory?.observe(viewLifecycleOwner, Observer {
-            Log.d("###", "category:$category, count:${it[category]?.size ?: 0}")
-            it[category]?.chunked(MAX_ITEM_COUNT)?.get(0)?.let {
-                recyclerView.adapter = ProductAdapter(it)
+            val map = it ?: return@Observer
+            map[category]?.chunked(MAX_ITEM_COUNT)?.get(0)?.let {
+                recyclerView.adapter = ProductAdapter(it, homeViewModel?.currency?.value?.symbol)
             }
         })
     }

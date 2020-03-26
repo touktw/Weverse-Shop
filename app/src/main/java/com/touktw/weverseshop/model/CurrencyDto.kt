@@ -4,16 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.touktw.weverseshop.base.db.BaseDto
 
-/**
- * Created by taekim on 2020-03-24
- */
-
-@Entity(tableName = "artist")
-data class ArtistDto(
+@Entity(tableName = "currency")
+data class CurrencyDto(
+        val symbol: String,
         val name: String,
         @PrimaryKey
-        val id: Int,
-        val group: String,
-        val groupId: Int,
-        val logoUrl: String
+        val code: String
 ) : BaseDto

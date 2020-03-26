@@ -1,13 +1,17 @@
 package com.touktw.weverseshop.view.home.product
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.touktw.weverseshop.R
+import com.touktw.weverseshop.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_product_category.*
 
 /**
@@ -15,6 +19,19 @@ import kotlinx.android.synthetic.main.fragment_product_category.*
  */
 
 class ProductCategoryFragment : Fragment() {
+    private var homeViewModel: HomeViewModel? = null
+    private var category: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        category = arguments?.getString(KEY_CATEGORY)
+        activity?.let {
+            homeViewModel = ViewModelProvider(it,
+                    ViewModelProvider.AndroidViewModelFactory.getInstance(it.application))
+                    .get(HomeViewModel::class.java)
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_product_category, container, false)
@@ -23,9 +40,26 @@ class ProductCategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView.setHasFixedSize(false)
-        recyclerView.adapter = ProductAdapter()
         recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL).apply {
-            setDrawable(context?.resources?.getDrawable())
+            setDrawable(context?.resources?.getDrawable(R.drawable.divider_trans)!!)
         })
+        homeViewModel?.productsByCategory?.observe(viewLifecycleOwner, Observer {
+            Log.d("###", "category:$category, count:${it[category]?.size ?: 0}")
+            it[category]?.chunked(MAX_ITEM_COUNT)?.get(0)?.let {
+                recyclerView.adapter = ProductAdapter(it)
+            }
+        })
+    }
+
+    companion object {
+        private const val MAX_ITEM_COUNT = 6
+        private const val KEY_CATEGORY = "CATEGORY"
+        fun newInstance(category: String): ProductCategoryFragment {
+            return ProductCategoryFragment().apply {
+                arguments = Bundle().apply {
+                    putString(KEY_CATEGORY, category)
+                }
+            }
+        }
     }
 }

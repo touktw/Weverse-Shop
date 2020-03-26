@@ -39,6 +39,10 @@
         <item name="android:textSize">16dp</item>
     </style>
 
+    <style name="TextStyle.Normal.Bold" parent="TextStyle.Bold">
+        <item name="android:textSize">16dp</item>
+    </style>
+
     <style name="TextStyle.Small" parent="TextStyle">
         <item name="android:textSize">14dp</item>
     </style>

@@ -36,8 +36,10 @@ class HomeActivity : BaseActivity() {
         homeViewModel.selectedArtist.observe(this, Observer {
             setArtistInfo(it)
         })
-
-        showProduct()
+        buttonUp.setOnClickListener {
+            scrollView.smoothScrollTo(0, 0)
+            appBar.setExpanded(true, true)
+        }
     }
 
 
@@ -62,14 +64,5 @@ class HomeActivity : BaseActivity() {
     private fun setArtistInfo(artistDto: ArtistDto) {
         expandedHeaderContainer.setArtist(artistDto)
         textToolbar.text = artistDto.name
-    }
-
-    private fun showProduct() {
-//        val view = LayoutInflater.from(this).inflate(R.layout.fragment_product, null, false)
-//        productContainer = ProductContainer(layoutProduct, supportFragmentManager)
-//        layoutProductContainer.addView(productContainer?.containerView)
-//        supportFragmentManager.beginTransaction()
-//                .add(R.id.productContainer, ProductFragment())
-//                .commit()
     }
 }

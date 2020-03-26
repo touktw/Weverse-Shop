@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.touktw.weverseshop.R
+import com.touktw.weverseshop.model.ProductDto
 import kotlin.random.Random
 
 /**
@@ -11,11 +12,9 @@ import kotlin.random.Random
  */
 
 
-class ProductAdapter : RecyclerView.Adapter<ProductView>() {
-    val items = Random.nextInt(6)
+class ProductAdapter(private val items: List<ProductDto>) : RecyclerView.Adapter<ProductView>() {
     override fun getItemCount(): Int {
-
-        return 5
+        return items.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductView {
@@ -23,6 +22,6 @@ class ProductAdapter : RecyclerView.Adapter<ProductView>() {
     }
 
     override fun onBindViewHolder(holder: ProductView, position: Int) {
-        // TODO
+        holder.bindProduct(items[position])
     }
 }

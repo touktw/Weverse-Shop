@@ -5,13 +5,15 @@ package com.touktw.weverseshop.model
  */
 
 data class ProductDto(
-    val title: String,
-    val description: String,
-    val imageUrl: String,
-    val isOnly: Boolean,
-    val isReserve: Boolean,
-    val price: Float,
-    val artistId: String,
-    val category: String,
-    val tag: String
+        val id: Int,
+        val title: String,
+        val description: String,
+        val imageUrl: String,
+        val isOnly: Boolean,
+        val isReserve: Boolean,
+        val isSoldOut: Boolean,
+        val price: Float,
+        val artistId: String,
+        val category: String,
+        val tag: String
 )

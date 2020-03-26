@@ -11,11 +11,11 @@ import com.touktw.weverseshop.model.LocaleDto
  */
 
 object SharedPreferenceManager {
-    const val PREF_NAME = "WeversePreference"
-    const val KEY_IS_FINISH_WIZARD = "IS_FINISH_WIZARD"
-    const val KEY_SELECTED_ARTIST_ID = "SELECTED_ARTIST_ID"
-    const val KEY_SELECTED_LOCALE = "SELECTED_LOCALE"
-    const val KEY_SELECTED_CURRENCY = "SELECTED_CURRENCY"
+    private const val PREF_NAME = "WeversePreference"
+    private const val KEY_IS_FINISH_WIZARD = "IS_FINISH_WIZARD"
+    private const val KEY_SELECTED_ARTIST_ID = "SELECTED_ARTIST_ID"
+    private const val KEY_SELECTED_LOCALE = "SELECTED_LOCALE"
+    private const val KEY_SELECTED_CURRENCY = "SELECTED_CURRENCY"
 
     fun isWizardFinished(context: Context): Boolean =
             getPreference(context).getBoolean(KEY_IS_FINISH_WIZARD, false)

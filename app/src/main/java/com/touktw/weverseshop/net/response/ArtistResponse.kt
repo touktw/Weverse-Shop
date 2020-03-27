@@ -7,6 +7,4 @@ import com.touktw.weverseshop.model.ArtistDto
  * Created by taekim on 2020-03-24
  */
 
-data class ArtistResponse(
-    val data: List<ArtistDto>
-) : BaseResponse
+data class ArtistResponse(val data: List<ArtistDto>) : BaseResponse

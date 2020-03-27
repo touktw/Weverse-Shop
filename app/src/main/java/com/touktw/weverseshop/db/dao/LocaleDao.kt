@@ -2,8 +2,6 @@ package com.touktw.weverseshop.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.touktw.weverseshop.base.db.BaseDao
 import com.touktw.weverseshop.model.LocaleDto
@@ -16,8 +14,8 @@ import com.touktw.weverseshop.model.LocaleDto
 @Dao
 interface LocaleDao : BaseDao<LocaleDto> {
     @Query("SELECT * FROM locale")
-    fun getAll(): LiveData<List<LocaleDto>>
+    fun getAll(): LiveData<List<LocaleDto>?>
 
     @Query("SELECT * FROM locale")
-    suspend fun getAllSync(): List<LocaleDto>
+    suspend fun getAllSync(): List<LocaleDto>?
 }

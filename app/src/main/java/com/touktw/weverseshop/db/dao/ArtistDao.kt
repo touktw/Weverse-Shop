@@ -2,8 +2,6 @@ package com.touktw.weverseshop.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.touktw.weverseshop.base.db.BaseDao
 import com.touktw.weverseshop.model.ArtistDto
@@ -15,11 +13,11 @@ import com.touktw.weverseshop.model.ArtistDto
 @Dao
 interface ArtistDao : BaseDao<ArtistDto> {
     @Query("SELECT * FROM artist")
-    fun getAll(): LiveData<List<ArtistDto>>
+    fun getAll(): LiveData<List<ArtistDto>?>
 
     @Query("SELECT * FROM artist")
-    fun getAllSync(): List<ArtistDto>
+    fun getAllSync(): List<ArtistDto?>
 
     @Query("SELECT * FROM artist WHERE id=(:artistId)")
-    fun getById(artistId: Int): LiveData<ArtistDto>
+    fun getById(artistId: Int): LiveData<ArtistDto?>
 }

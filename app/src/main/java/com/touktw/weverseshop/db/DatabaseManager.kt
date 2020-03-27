@@ -11,8 +11,8 @@ import androidx.room.Room
 object DatabaseManager {
     fun get(applicationContext: Context): WeverseDatabase {
         return Room
-            .databaseBuilder(applicationContext, WeverseDatabase::class.java, "weverse-shop")
-            .addMigrations()
-            .build()
+                .databaseBuilder(applicationContext, WeverseDatabase::class.java, "weverse-shop")
+                .fallbackToDestructiveMigration()
+                .build()
     }
 }

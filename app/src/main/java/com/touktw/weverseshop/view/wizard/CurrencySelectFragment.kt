@@ -31,7 +31,7 @@ class CurrencySelectFragment : BaseWizardFragment() {
         }
     }
 
-    override fun getNextDirenction(): NavDirections? {
+    override fun getNextDirections(): NavDirections? {
         return CurrencySelectFragmentDirections.actionToArtistSelect()
     }
 
@@ -53,7 +53,7 @@ class CurrencySelectFragment : BaseWizardFragment() {
         wizardViewModel?.currencies?.observe(viewLifecycleOwner, Observer { currencies ->
             CoroutineScope(Dispatchers.Main).launch {
                 radioGroup.removeAllViews()
-                currencies.forEachIndexed { index, currency ->
+                currencies?.forEachIndexed { index, currency ->
                     val button = inflateRadioButton()
                     button.id = index
                     button.text = "${currency.symbol}(${currency.code}) - ${currency.name}"

@@ -9,8 +9,10 @@ import com.google.android.material.appbar.AppBarLayout
 import com.touktw.weverseshop.R
 import com.touktw.weverseshop.base.BaseActivity
 import com.touktw.weverseshop.model.ArtistDto
+import com.touktw.weverseshop.view.home.artistselect.ArtistSelectSheetFragment
 import com.touktw.weverseshop.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.view_home_header_expanded.*
 
 /**
  * Created by taekim on 2020-03-24
@@ -34,10 +36,23 @@ class HomeActivity : BaseActivity() {
         initCollapsingLayout()
 
         homeViewModel.selectedArtist.observe(this, Observer {
-            setArtistInfo(it)
+            val artist = it ?: return@Observer
+            setArtistInfo(artist)
         })
-
-        showProduct()
+        buttonUp.setOnClickListener {
+            scrollView.smoothScrollTo(0, 0)
+            appBar.setExpanded(true, true)
+        }
+        layoutArtistInfo.setOnClickListener {
+            ArtistSelectSheetFragment().show(supportFragmentManager, "")
+        }
+        homeViewModel.recent.observe(this, Observer {
+            if (it?.isNotEmpty() == true) {
+                cardRecent.visibility = View.VISIBLE
+            } else {
+                cardRecent.visibility = View.GONE
+            }
+        })
     }
 
 
@@ -62,14 +77,5 @@ class HomeActivity : BaseActivity() {
     private fun setArtistInfo(artistDto: ArtistDto) {
         expandedHeaderContainer.setArtist(artistDto)
         textToolbar.text = artistDto.name
-    }
-
-    private fun showProduct() {
-//        val view = LayoutInflater.from(this).inflate(R.layout.fragment_product, null, false)
-//        productContainer = ProductContainer(layoutProduct, supportFragmentManager)
-//        layoutProductContainer.addView(productContainer?.containerView)
-//        supportFragmentManager.beginTransaction()
-//                .add(R.id.productContainer, ProductFragment())
-//                .commit()
     }
 }

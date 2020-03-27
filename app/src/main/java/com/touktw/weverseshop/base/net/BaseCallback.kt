@@ -16,38 +16,19 @@ import java.util.*
 
 abstract class BaseCallback<T : BaseResponse>(private val clazz: Class<T>) : Callback<ApiResponse> {
     private val parser = JsonParser()
-    private val gson =
-        GsonBuilder()
+    private val gson = GsonBuilder()
             .registerTypeAdapter(Locale::class.java, LocaleDeserializer())
             .create()
 
     abstract fun onSuccess(response: T)
     abstract fun onFailed(code: Int, t: Throwable? = null)
     override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-        Log.d("###", "onFailure ${t.message}")
+        Log.d(LOG, "onFailure ${t.message}")
         onFailed(Results.ERROR_UNKNOWN, t)
     }
 
-
-    internal class LocaleDeserializer : JsonDeserializer<Locale> {
-        override fun deserialize(
-            json: JsonElement?,
-            typeOfT: Type?,
-            context: JsonDeserializationContext?
-        ): Locale {
-            return json?.asString?.let {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Locale.forLanguageTag(it)
-                } else {
-                    val splits = it.split("-")
-                    Locale(splits[0], splits[1])
-                }
-            } ?: Locale.getDefault()
-        }
-
-    }
-
     override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+        Log.d(LOG, "onResponse url:${call.request().url()} response:${response.isSuccessful},${response.code()}")
         when {
             response.isSuccessful -> {
                 var success = false
@@ -75,6 +56,24 @@ abstract class BaseCallback<T : BaseResponse>(private val clazz: Class<T>) : Cal
                 onFailed(response.code())
             }
         }
+    }
+
+    internal class LocaleDeserializer : JsonDeserializer<Locale> {
+        override fun deserialize(
+                json: JsonElement?,
+                typeOfT: Type?,
+                context: JsonDeserializationContext?
+        ): Locale {
+            return json?.asString?.let {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Locale.forLanguageTag(it)
+                } else {
+                    val splits = it.split("-")
+                    Locale(splits[0], splits[1])
+                }
+            } ?: Locale.getDefault()
+        }
+
     }
 
     companion object {

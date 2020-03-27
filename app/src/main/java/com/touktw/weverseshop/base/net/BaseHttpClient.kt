@@ -14,18 +14,18 @@ abstract class BaseHttpClient {
 
     val client: OkHttpClient by lazy {
         val builder = OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                val original = chain.request()
-                val request = original.newBuilder().let { builder ->
-                    getHeaders()?.let {
-                        builder.headers(it)
-                    }
-                    builder
-                }.method(original.method(), original.body())
-                    .build()
+                .addInterceptor { chain ->
+                    val original = chain.request()
+                    val request = original.newBuilder().let { builder ->
+                        getHeaders()?.let {
+                            builder.headers(it)
+                        }
+                        builder
+                    }.method(original.method(), original.body())
+                            .build()
 
-                chain.proceed(request)
-            }
+                    chain.proceed(request)
+                }
         builder.build()
     }
 }

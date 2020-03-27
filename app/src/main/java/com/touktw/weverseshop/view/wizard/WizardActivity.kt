@@ -9,6 +9,9 @@ import com.touktw.weverseshop.R
 import com.touktw.weverseshop.base.BaseActivity
 import com.touktw.weverseshop.viewmodel.WizardViewModel
 import kotlinx.android.synthetic.main.activity_wizard.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * Created by taekim on 2020-03-24
@@ -34,12 +37,14 @@ class WizardActivity : BaseActivity() {
         buttonNext.setOnClickListener {
             val fragment = navHost.childFragmentManager.fragments.getOrNull(0)
             if (fragment is BaseWizardFragment) {
-                val next = fragment.getNextDirenction()
+                val next = fragment.getNextDirections()
                 if (next == null) {
-                    if (viewModel?.savePreferences() == true) {
-                        setResult(Activity.RESULT_OK)
+                    CoroutineScope(Dispatchers.Main).launch {
+                        if (viewModel?.savePreferences() == true) {
+                            setResult(Activity.RESULT_OK)
+                        }
+                        finish()
                     }
-                    finish()
                 } else {
                     controller.navigate(next)
                 }

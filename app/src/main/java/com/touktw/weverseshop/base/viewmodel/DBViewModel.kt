@@ -11,4 +11,5 @@ import com.touktw.weverseshop.db.DatabaseManager
 
 abstract class DBViewModel(application: Application) : AndroidViewModel(application) {
     val db = DatabaseManager.get(application)
+    val preference = db.preferenceDao().getPreference()
 }

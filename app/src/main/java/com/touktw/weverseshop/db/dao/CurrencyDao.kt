@@ -10,5 +10,8 @@ import com.touktw.weverseshop.model.CurrencyDto
 @Dao
 interface CurrencyDao : BaseDao<CurrencyDto> {
     @Query("SELECT * FROM currency")
-    fun getAll(): LiveData<List<CurrencyDto>>
+    fun getAll(): LiveData<List<CurrencyDto>?>
+
+    @Query("SELECT * FROM currency WHERE code=:code")
+    fun get(code: String): LiveData<CurrencyDto?>
 }

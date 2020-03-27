@@ -2,6 +2,7 @@ package com.touktw.weverseshop.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.touktw.weverseshop.base.db.BaseDto
 
 /**
  * Created by taekim on 2020-03-24
@@ -9,10 +10,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "artist")
 data class ArtistDto(
-    val name: String,
-    @PrimaryKey
-    val id: Int,
-    val group: String,
-    val groupId: Int,
-    val logoUrl: String
-)
+        val name: String,
+        @PrimaryKey
+        val id: Int,
+        val group: String,
+        val groupId: Int,
+        val logoUrl: String
+) : BaseDto

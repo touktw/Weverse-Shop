@@ -15,8 +15,8 @@ class RoomTypeConverter {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Locale.forLanguageTag(value) ?: Locale.getDefault()
         } else {
-            val splited = value.split("-")
-            Locale(splited[0], splited[1])
+            val split = value.split("-")
+            Locale(split[0], split[1])
         }
     }
 

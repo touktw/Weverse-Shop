@@ -7,4 +7,7 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="grey">#808080</color>
+    <!--    27, 222, 186-->
+    <color name="cyan">#1bdeba</color>
+    <color name="cyan_dark">#2cceb3</color>
 </resources>

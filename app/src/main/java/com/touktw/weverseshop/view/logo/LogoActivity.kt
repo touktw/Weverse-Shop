@@ -3,16 +3,17 @@ package com.touktw.weverseshop.view.logo
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.touktw.weverseshop.R
 import com.touktw.weverseshop.base.BaseActivity
 import com.touktw.weverseshop.db.DatabaseManager
-import com.touktw.weverseshop.db.WeverseDatabase
 import com.touktw.weverseshop.view.home.HomeActivity
 import com.touktw.weverseshop.view.wizard.WizardActivity
 import com.touktw.weverseshop.viewmodel.LogoViewModel
+import kotlinx.android.synthetic.main.activity_logo.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,6 +31,7 @@ class LogoActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_logo)
+
         val factory = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         logoViewModel = ViewModelProvider(this, factory).get(LogoViewModel::class.java)
 
@@ -72,6 +74,7 @@ class LogoActivity : BaseActivity() {
     }
 
     private fun moveToNextActivity() {
+        progressBar.visibility = View.GONE
         CoroutineScope(Dispatchers.Main).launch {
             if (DatabaseManager.get(application).preferenceDao().getPreferenceSync() != null) {
                 startHomeActivity()

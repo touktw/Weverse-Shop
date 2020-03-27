@@ -2,7 +2,9 @@ package com.touktw.weverseshop.net
 
 import com.touktw.weverseshop.base.net.ApiResponse
 import com.touktw.weverseshop.base.net.BaseApi
-import retrofit2.Call
+import com.touktw.weverseshop.model.*
+import kotlinx.coroutines.Deferred
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -13,23 +15,23 @@ import retrofit2.http.Path
 interface WeverseShopApi : BaseApi {
 
     @GET("artists")
-    fun getArtists(): Call<ApiResponse>
+    fun getArtists(): Response<ApiResponse<List<ArtistDto>>>
 
     @GET("locales")
-    fun getLocales(): Call<ApiResponse>
+    fun getLocales(): Response<ApiResponse<List<LocaleDto>>>
 
     @GET("promotion")
-    fun getAllPromotion(): Call<ApiResponse>
+    fun getAllPromotion(): Response<ApiResponse<List<PromotionDto>>>
 
     @GET("promotion/{id}")
-    fun getPromotion(@Path("id") artistId: String): Call<ApiResponse>
+    suspend fun getPromotion(@Path("id") artistId: String): Response<ApiResponse<List<PromotionDto>>>
 
     @GET("product")
-    fun getAllProduct(): Call<ApiResponse>
+    fun getAllProduct(): Deferred<Response<ApiResponse<List<ProductDto>>>>
 
     @GET("product/{id}")
-    fun getProduct(@Path("id") artistId: String): Call<ApiResponse>
+    suspend fun getProduct(@Path("id") artistId: String): Response<ApiResponse<List<ProductDto>>>
 
     @GET("notice")
-    fun getNotice(): Call<ApiResponse>
+    suspend fun getNotice(): Response<ApiResponse<List<NoticeDto>>>
 }

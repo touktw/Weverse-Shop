@@ -13,4 +13,7 @@ interface PreferenceDao : BaseDao<PreferenceDto> {
 
     @Query("SELECT * FROM preference WHERE id='1'")
     suspend fun getPreferenceSync(): PreferenceDto?
+
+    @Query("UPDATE preference SET artistId=:artistId WHERE id='1'")
+    suspend fun updateArtistId(artistId: Int): Int
 }

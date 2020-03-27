@@ -1,7 +1,6 @@
 package com.touktw.weverseshop.view.wizard
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RadioButton
@@ -25,6 +24,7 @@ import kotlinx.coroutines.launch
 
 class ArtistSelectFragment : BaseWizardFragment() {
     private var wizardViewModel: WizardViewModel? = null
+    private val radioButtonMap = mutableMapOf<Int, RadioButton>()
 
     override val layoutRes: Int = R.layout.fragment_preference_select
 
@@ -55,7 +55,6 @@ class ArtistSelectFragment : BaseWizardFragment() {
         }
     }
 
-    private val radioButtonMap = mutableMapOf<Int, RadioButton>()
     private fun initRadio() {
         wizardViewModel?.artists?.observe(viewLifecycleOwner, Observer { artists ->
             CoroutineScope(Dispatchers.Main).launch {
@@ -102,10 +101,6 @@ class ArtistSelectFragment : BaseWizardFragment() {
                 }
             }
         })
-
-        radioGroup.setOnClickListener {
-            Log.d("###", "click, id:${it.id}")
-        }
 
         updateNextButton()
     }

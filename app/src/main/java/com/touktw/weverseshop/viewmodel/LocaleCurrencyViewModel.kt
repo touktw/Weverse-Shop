@@ -23,12 +23,15 @@ class LocaleCurrencyViewModel(application: Application) : DBViewModel(applicatio
             val localeResult = withContext(Dispatchers.Default) {
                 WeverseShopService.get().getLocales().getResult()
             }
+            val currencyResult = withContext(Dispatchers.Default) {
+                WeverseShopService.get().getCurrencies().getResult()
+            }
 
             withContext(Dispatchers.IO) {
                 localeResult.data?.let { locales ->
-                    val currencies = locales.mapNotNull { it.currency }
-
                     db.localeDao().insert(*locales.toTypedArray())
+                }
+                currencyResult.data?.let { currencies ->
                     db.currencyDao().insert(*currencies.toTypedArray())
                 }
             }

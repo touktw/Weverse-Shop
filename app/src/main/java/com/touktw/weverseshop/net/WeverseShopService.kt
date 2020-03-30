@@ -16,15 +16,12 @@ import java.util.*
 
 object WeverseShopService {
     private val client = WeverseShopHttpClient()
-    private val gson = GsonBuilder()
-            .registerTypeAdapter(Locale::class.java, LocaleDeserializer())
-            .create()
 
     fun get(): WeverseShopApi {
         return Retrofit.Builder()
                 .baseUrl(client.baseUrl)
                 .client(client.client)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(WeverseShopApi::class.java)
     }

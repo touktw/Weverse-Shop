@@ -1,7 +1,6 @@
 package com.touktw.weverseshop.model
 
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.touktw.weverseshop.base.db.BaseDto
 import java.util.*
@@ -13,8 +12,14 @@ import java.util.*
 @Entity(tableName = "locale")
 data class LocaleDto(
         @PrimaryKey
-        val locale: Locale
+        val id: Int,
+        val language: String,
+        val country: String?
 ) : BaseDto {
-    @Ignore
-    var currency: CurrencyDto? = null
+    fun getLocale(): Locale {
+        val country = country ?: return Locale(language)
+
+        return Locale(language, country)
+    }
+
 }

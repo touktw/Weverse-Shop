@@ -28,7 +28,7 @@ class WizardViewModel(application: Application) : DBViewModel(application) {
 
     suspend fun savePreferences() = withContext(Dispatchers.Default) {
         if (selectedArtist != null && selectedCurrency != null && selectedLocale != null) {
-            val preference = PreferenceDto(selectedArtist!!.id, selectedLocale!!.locale, selectedCurrency!!.code)
+            val preference = PreferenceDto(selectedArtist!!.id, selectedLocale!!.getLocale(), selectedCurrency!!.code)
             val result = withContext(Dispatchers.IO) {
                 db.preferenceDao().insert(preference)
             }

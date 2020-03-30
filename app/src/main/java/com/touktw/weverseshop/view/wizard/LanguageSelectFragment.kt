@@ -58,7 +58,7 @@ class LanguageSelectFragment : BaseWizardFragment() {
                 locales?.forEachIndexed { index, locale ->
                     val button = inflateRadioButton()
                     button.id = index
-                    button.text = locale.locale.getDisplayLanguage(locale.locale)
+                    button.text = locale.getLocale().getDisplayLanguage(locale.getLocale())
                     radioGroup.addView(button)
                 }
                 wizardViewModel?.selectedLocale?.let { locale ->
